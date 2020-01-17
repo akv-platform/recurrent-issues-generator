@@ -18,7 +18,7 @@ $bodyRequest = @{
 } | ConvertTo-Json
 
 $headerRequest = @{
-    ContentType = "application/json"
+    "Content-Type" = "application/json"
 } | ConvertTo-Json
 
 $githubURL = "https://api.github.com/repos/vsafonkin/test-github-actions/issues"
