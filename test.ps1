@@ -3,9 +3,10 @@ $eventPayload = Get-Content $env:GITHUB_EVENT_PATH | ConvertFrom-Json
 $milestoneTitle = $eventPayload.milestone.title
 $milestoneDescription = $eventPayload.milestone.description
 $milestoneDate = $eventPayload.milestone.created_at
-
+$milestoneNumber = $eventPayload.milestone.number
 Write-Host $eventPayload.milestone
 Write-Host "------------"
 Write-Host "Title: $milestoneTitle"
 Write-Host "Description: $milestoneDescription"
 Write-Host "Date: $milestoneDate"
+Write-Host "Number: $milestoneNumber"
