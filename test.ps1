@@ -5,5 +5,5 @@ $milestoneDescription = $eventPayload.description
 $milestoneDate = $eventPayload.created_at
 
 Write-Host"Title: $milestoneTitle"
-Write-Host"Description: $milestoneTitle"
-Write-Host"Date: $milestoneTitle"
+Write-Host"Description: $milestoneDescription"
+Write-Host"Date: $milestoneDate"
