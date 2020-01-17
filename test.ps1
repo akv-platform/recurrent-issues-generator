@@ -17,5 +17,5 @@ $body = @{
     milestone = $milestoneNumber
 }
 
-$githubURL = "https://api.github.com/repos/vsafonkin/test-github-actions"
-Invoke-WebRequest $githubURL -Method "POST" -Body ($body | ConvertTo-Json)
+$githubURL = "https://api.github.com/repos/vsafonkin/test-github-actions/issues"
+Invoke-WebRequest $githubURL -Method "POST" -Body $($body | ConvertTo-Json)
