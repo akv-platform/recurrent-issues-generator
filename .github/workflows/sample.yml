@@ -12,5 +12,5 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Run a multi-line script
-      run: |
-        echo Milestone
+      run: ./test.ps1
+      shell: pwsh
