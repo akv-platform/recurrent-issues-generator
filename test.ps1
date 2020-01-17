@@ -17,26 +17,11 @@ $bodyRequest = @{
     milestone = $milestoneNumber
 } | ConvertTo-Json
 
-$githubURL = "https://api.github.com/repos/vsafonkin/test-github-actions/issues"
-
-
-function Invoke-Request {
-    param(
-        [string] $Url,
-        [string] $Method,
-        [string] $Body
-    )
-    
-    $params = @{
-        Method = $Method
-        ContentType = "application/json"
-        Uri = $Url
-        Body = $Body
-    }
-
-    $response = Invoke-RestMethod @params
-    return $response
+$headerRequest = @{
+    ContentType = "application/json"
 }
 
-$response = Invoke-Request -Url $githubURL -Method 'Post' -Body $bodyRequest
+$githubURL = "https://api.github.com/repos/vsafonkin/test-github-actions/issues"
+
+$response = Invoke-RestMethod -Uri $githubURL -Method 'Post' -Body $bodyRequest -Headers $headerRequest
 Write-Host $response
