@@ -18,4 +18,4 @@ $body = @{
 }
 
 $githubURL = "https://api.github.com/repos/vsafonkin/test-github-actions"
-Invoke-WebRequest -URI $githubURL -Method "POST" -Body ($body | ConvertTo-Json)
+Invoke-WebRequest $githubURL -Method "POST" -Body ($body | ConvertTo-Json)
