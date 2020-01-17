@@ -10,3 +10,12 @@ Write-Host "Title: $milestoneTitle"
 Write-Host "Description: $milestoneDescription"
 Write-Host "Date: $milestoneDate"
 Write-Host "Number: $milestoneNumber"
+
+$body = @{
+    title = "Hello issue"
+    body = "issue body is here"
+    milestone = $milestoneNumber
+}
+
+$githubURL = "https://api.github.com/repos/vsafonkin/test-github-actions"
+Invoke-WebRequest -URI $githubURL -Method "POST" -Body ($body | ConvertTo-Json)
