@@ -38,5 +38,5 @@ function Invoke-Request {
     return $response
 }
 
-$response = Invoke-Request -Url $githubURL -Method "Post" -Body $bodyRequest
+$response = Invoke-Request -Url $githubURL -Method 'Post' -Body $bodyRequest
 Write-Host $response
