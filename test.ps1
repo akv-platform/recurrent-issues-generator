@@ -1,2 +1,3 @@
 Write-Host "Milestone!!!"
-Write-Host $env:GITHUB_EVENT_PATH
+$eventPayload = Get-Content $env:GITHUB_EVENT_PATH | ConvertTo-Json
+Write-Host $eventPayload
