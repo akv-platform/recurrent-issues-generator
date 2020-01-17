@@ -19,7 +19,7 @@ $bodyRequest = @{
 
 $headerRequest = @{
     ContentType = "application/json"
-}
+} | ConvertTo-Json
 
 $githubURL = "https://api.github.com/repos/vsafonkin/test-github-actions/issues"
 
