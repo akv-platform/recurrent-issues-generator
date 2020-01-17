@@ -2,7 +2,7 @@ name: Test
 
 on:
   milestone:
-    types: [created, opened]
+    types: [created]
 
 jobs:
   build:
