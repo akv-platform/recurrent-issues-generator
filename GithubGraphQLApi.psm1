@@ -25,7 +25,7 @@ class GithubGraphQLApi
                 milestoneId:`"$milestoneId`"
                 title:`"$Title`",
                 body:`"$Body`",
-                labelIds: [$LabelIds]
+                labelIds:$LabelIds
             })
             {issue {title}
             }
