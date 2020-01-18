@@ -12,6 +12,12 @@ class GithubGraphQLApi
         }
     }
 
+    [object] GetRepoLabels([string]$RepositoryOwner, [string]$RepositoryName) {
+        $query = "{repository(owner: `"$RepositoryOwner`", name: `"$RepositoryName`") {labels(first: 100) {nodes {name, id}}}}"
+        $response = $this.InvokeRestMethod($query) | ConvertFrom-Json
+        return $response.data.repository.labels.nodes
+    }
+
     [object] CreateIssue([string]$RepositoryId, [string]$MilestoneId, [string]$Title, [string]$Body) {
         $query = "mutation {
             createIssue(input:{
@@ -24,17 +30,16 @@ class GithubGraphQLApi
             }
          }"
 
-        $requestGraphQl = @{
-            query = $query
-        } | ConvertTo-Json
-
-        $response = $this.InvokeRestMethod($requestGraphQl)
-        return $response
+        return $this.InvokeRestMethod($query) | ConvertFrom-Json
     }
 
     [object] hidden InvokeRestMethod(
-        [string] $requestGraphQl
+        [string] $queryGraphQl
     ) {
+        $requestGraphQl = @{
+            query = $queryGraphQl
+        } | ConvertTo-Json
+
         $params = @{
             Method = "POST"
             ContentType = "application/json"
