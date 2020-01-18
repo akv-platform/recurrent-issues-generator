@@ -13,11 +13,32 @@ Write-Host "Date: $milestoneDate"
 Write-Host "Number: $milestoneNumber"
 Write-Host "Repository Id: $repositoryId"
 Write-Host "------------"
-Write-Host $env:GITHUB_TOKEN
+
 
 # if ($milestoneTitle -NotMatch "\d\d\d\d Week \d") {
 #     exit 0
 # }
 
-# Write-Host "Create issues..."
+Write-Host "Create issues..."
+
+$query = "mutation {createIssue(input:{title:`"hello github`", repositoryId:`"$repositoryID`"})
+               {issue {title}}
+                    }"
+$bodyGraphQl = @{
+    query = $query
+} | ConvertTo-Json
+
+Write-Host $bodyGraphQl
+
+$params = @{
+    Uri = $githubGraphQLApi
+    Method = "POST"
+    Body = $bodyGraphQl
+    Headers = @{
+        Authorization = "Bearer $env:GITHUB_TOKEN"
+    }
+}
+
+$response = Invoke-WebRequest @params
+Write-Host $response
 
