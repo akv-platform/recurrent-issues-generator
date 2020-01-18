@@ -2,7 +2,7 @@ Import-Module (Join-Path $PSScriptRoot -ChildPath "GithubGraphQLApi.psm1")
 
 
 $eventPayload = Get-Content $env:GITHUB_EVENT_PATH | ConvertFrom-Json
-# Write-Host $eventPayload.repository.owner
+Write-Host $eventPayload
 $milestoneTitle = $eventPayload.milestone.title
 $milestoneDescription = $eventPayload.milestone.description
 $milestoneId = $eventPayload.milestone.node_id
