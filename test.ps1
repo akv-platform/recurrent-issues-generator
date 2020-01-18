@@ -6,7 +6,8 @@ Write-Host $eventPayload.milestone
 Write-Host $eventPayload.repository
 Write-Host $eventPayload.sender
 $milestoneTitle = $eventPayload.milestone.title
-$milestoneId = $eventPayload.milestone.node_id
+$milestoneNodeId = $eventPayload.milestone.node_id
+$milestoneId = $eventPayload.milestone.id
 $repositoryName = $eventPayload.repository.name
 $repositoryOwner = $eventPayload.repository.owner.login
 $repositoryId = $eventPayload.repository.node_id
@@ -41,6 +42,9 @@ $issues = Get-Content -Raw -Path $jsonPath | ConvertFrom-Json
 foreach ($issue in $issues) {
     $title = $issue.Title + $milestoneTitle
     $issueLabelIds = Get-IssueLabelsIds -RepositoryLabels $labels -IssueLabels $issue.Labels
-    $githubGraphQlApi.CreateIssue($repositoryId, $milestoneId, $title, $issue.Body, $issueLabelIds)
+    $githubGraphQlApi.CreateIssue($repositoryId, $milestoneNodeId, $title, $issue.Body, $issueLabelIds)
     Write-Host "Issue `"$title`" is created"
+
+    $cardIds = $githubGraphQlApi.GetMilestoneCardIds($repositoryOwner, $repositoryName, $milestoneId)
+    Write-Host $cardIds
 }

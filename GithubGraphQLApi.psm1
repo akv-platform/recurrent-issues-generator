@@ -35,6 +35,22 @@ class GithubGraphQLApi
         return $this.InvokeApiMethod($query)
     }
 
+    [object] GetMilestoneCardIds([string]$RepositoryOwner, [string]$RepositoryName, [string]$milestoneId) {
+        $query = "{repository(owner: `"$RepositoryOwner`", name: `"$RepositoryName`") {
+            issues(filterBy: {milestone: `"$milestoneId`"}, last: 20) {
+                nodes {
+                    projectCards(last: 20) {
+                        nodes {
+                            id
+                        }
+                    }
+                }
+            }
+        }}"
+
+        return $this.InvokeApiMethod($query)
+    }
+
     [object] hidden InvokeApiMethod(
         [string] $queryGraphQl
     ) {
