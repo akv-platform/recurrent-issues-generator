@@ -7,39 +7,21 @@ $milestoneDescription = $eventPayload.milestone.description
 $milestoneId = $eventPayload.milestone.node_id
 $repositoryId = $eventPayload.repository.node_id
 
-# if ($milestoneTitle -NotMatch "\d\d\d\d Week \d") {
-#     exit 0
-# }
+if ($milestoneTitle -NotMatch "\d{4} Week \d") {
+    exit 0
+}
 
 $githubGraphQlApi = Get-GithubGraphQlApi -BearerToken $env:GITHUB_TOKEN
 
 Write-Host "Create issues..."
-$response = $githubGraphQlApi.CreateIssue($repositoryId, $milestoneId, "Test issue")
+$jsonPath = Join-Path $PSScriptRoot "issues.json"
+$issues = Get-Content -Raw -Path $jsonPath | ConvertFrom-Json
 
-# $githubGraphQLApi = "https://api.github.com/graphql"
-# $query = "mutation {
-#             createIssue(input:{
-#                             title:`"hello github`", 
-#                             repositoryId:`"$repositoryID`",
-#                             milestoneId:`"$milestoneId`"
-#                         })
-#             {issue {title}
-#             }
-#          }"
+foreach ($issue in $issues) {
+    $title = $issue.Title + $milestoneTitle
+    $githubGraphQlApi.CreateIssue($repositoryId, $milestoneId, $title)
+    Write-Host "Issue `"$title`" is created"
+}
 
-# $requestGraphQl = @{
-#     query = $query
-# } | ConvertTo-Json
 
-# $params = @{
-#     Uri = $githubGraphQLApi
-#     Method = "POST"
-#     Body = $requestGraphQl
-#     Headers = @{
-#         Authorization = "Bearer $env:GITHUB_TOKEN"
-#     }
-# }
-
-# $response = Invoke-WebRequest @params
-Write-Host $response
 
