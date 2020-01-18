@@ -21,7 +21,7 @@ function Get-IssueLabelsIds {
 
     $labelIds = @()
     foreach ($RepositoryLabel in $RepositoryLabels) {
-        if ($IssueLabels.Contains($RepositoryLabel)) {
+        if ($IssueLabels.Contains($RepositoryLabel.name)) {
             $labelIds += $RepositoryLabel.id
         }
     }
@@ -43,8 +43,3 @@ foreach ($issue in $issues) {
     $githubGraphQlApi.CreateIssue($repositoryId, $milestoneId, $title, $issue.Body, $issueLabelIds)
     Write-Host "Issue `"$title`" is created"
 }
-
-foreach ($label in $labels) {
-    Write-Host $label
-}
-
