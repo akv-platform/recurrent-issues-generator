@@ -25,6 +25,8 @@ function Get-IssueLabelsIds {
             $labelIds += $RepositoryLabel.id
         }
     }
+    Write-Host "-------"
+    Write-Host $labelIds
     return $labelIds
 }
 

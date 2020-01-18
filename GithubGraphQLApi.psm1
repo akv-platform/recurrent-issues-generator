@@ -14,7 +14,7 @@ class GithubGraphQLApi
 
     [object] GetRepoLabels([string]$RepositoryOwner, [string]$RepositoryName) {
         $query = "{repository(owner: `"$RepositoryOwner`", name: `"$RepositoryName`") {labels(first: 100) {nodes {name, id}}}}"
-        $response = $this.InvokeRestMethod($query)
+        $response = $this.InvokeApiMethod($query)
         return $response.data.repository.labels.nodes
     }
 
@@ -31,10 +31,10 @@ class GithubGraphQLApi
             }
          }"
 
-        return $this.InvokeRestMethod($query)
+        return $this.InvokeApiMethod($query)
     }
 
-    [object] hidden InvokeRestMethod(
+    [object] hidden InvokeApiMethod(
         [string] $queryGraphQl
     ) {
         $requestGraphQl = @{
