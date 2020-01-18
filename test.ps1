@@ -25,6 +25,7 @@ function Get-IssueLabelsIds {
             $labelIds += $RepositoryLabel.id
         }
     }
+    return $labelIds
 }
 
 $githubGraphQlApi = Get-GithubGraphQlApi -BearerToken $env:GITHUB_TOKEN
