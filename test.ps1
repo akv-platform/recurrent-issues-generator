@@ -45,6 +45,10 @@ foreach ($issue in $issues) {
     $githubGraphQlApi.CreateIssue($repositoryId, $milestoneNodeId, $title, $issue.Body, $issueLabelIds)
     Write-Host "Issue `"$title`" is created"
 
-    $cardIds = $githubGraphQlApi.GetMilestoneCardIds($repositoryOwner, $repositoryName, $milestoneId)
-    Write-Host $cardIds
+}
+
+# Move assigned project cards to "to do" column
+$cardIds = $githubGraphQlApi.GetMilestoneCardIds($repositoryOwner, $repositoryName, $milestoneId)
+foreach ($cardId in $cardIds) {
+    $githubGraphQlApi.MoveProjectCard($cardId)
 }

@@ -51,6 +51,19 @@ class GithubGraphQLApi
         return $this.InvokeApiMethod($query)
     }
 
+    [object] MoveProjectCard([string]$CardId) {
+        $columnId = "MDEzOlByb2plY3RDb2x1bW43NzIyODY5"
+        $query = "mutation {
+            moveProjectCard(input:{
+                cardId: `"$CardId`",
+                columnId: `"$columnId`"
+            })
+            {clientMutationId}
+        }"
+
+        return this.InvokeApiMethod($query)
+    }
+
     [object] hidden InvokeApiMethod(
         [string] $queryGraphQl
     ) {
