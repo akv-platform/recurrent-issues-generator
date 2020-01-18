@@ -1,5 +1,5 @@
 Write-Host "Milestone!!!"
-$eventPayload = Get-Content $env:GITHUB_EVENT_PATH | ConvertFrom-Json
+$eventPayload = Get-Content $env:GITHUB_EVENT_PATH
 $milestoneTitle = $eventPayload.milestone.title
 $milestoneDescription = $eventPayload.milestone.description
 $milestoneDate = $eventPayload.milestone.created_at
