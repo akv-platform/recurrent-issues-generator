@@ -1,4 +1,4 @@
-Import-Module (Join-Path $PSScriptRoot ".." | Join-Path -ChildPath "GithubGraphQLApi.psm1")
+Import-Module (Join-Path $PSScriptRoot -ChildPath "GithubGraphQLApi.psm1")
 
 
 $eventPayload = Get-Content $env:GITHUB_EVENT_PATH | ConvertFrom-Json
