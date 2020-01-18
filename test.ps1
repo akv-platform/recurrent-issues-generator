@@ -12,6 +12,8 @@ Write-Host "Description: $milestoneDescription"
 Write-Host "Date: $milestoneDate"
 Write-Host "Number: $milestoneNumber"
 Write-Host "Repository Id: $repositoryId"
+Write-Host "------------"
+Write-Host $env:GITHUB_TOKEN
 
 # if ($milestoneTitle -NotMatch "\d\d\d\d Week \d") {
 #     exit 0
