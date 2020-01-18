@@ -15,4 +15,4 @@ jobs:
       run: ./test.ps1
       shell: pwsh
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
