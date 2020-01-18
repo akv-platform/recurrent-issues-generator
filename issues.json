@@ -4,7 +4,6 @@
         "Body": "- [ ] Deploy to INT\n- [ ] Deploy to PROD\n- [ ] Update docs",
         "Labels": [
             "bug",
-            "good",
             "azure devops"
         ]
     },
