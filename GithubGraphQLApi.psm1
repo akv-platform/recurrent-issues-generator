@@ -18,19 +18,20 @@ class GithubGraphQLApi
         return $response.data.repository.labels.nodes
     }
 
-    [object] CreateIssue([string]$RepositoryId, [string]$MilestoneId, [string]$Title, [string]$Body) {
+    [object] CreateIssue([string]$RepositoryId, [string]$MilestoneId, [string]$Title, [string]$Body, [string[]]$LabelIds) {
         $query = "mutation {
             createIssue(input:{
                 repositoryId:`"$repositoryID`",
                 milestoneId:`"$milestoneId`"
                 title:`"$Title`",
-                body:`"$Body`"
+                body:`"$Body`",
+                labelIds:`"$LabelIds`"
             })
             {issue {title}
             }
          }"
 
-        return $this.InvokeRestMethod($query) | ConvertFrom-Json
+        return $this.InvokeRestMethod($query)
     }
 
     [object] hidden InvokeRestMethod(

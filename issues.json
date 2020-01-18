@@ -1,10 +1,18 @@
 [
     {
         "Title": "AppCenter Mojave Image Updates ",
-        "Body": "- [ ] Deploy to INT\n- [ ] Deploy to PROD\n- [ ] Update docs"
+        "Body": "- [ ] Deploy to INT\n- [ ] Deploy to PROD\n- [ ] Update docs",
+        "Labels": [
+            "bug",
+            "good",
+            "azure devops"
+        ]
     },
     {
         "Title": "AzDO Mojave Image Updates ",
-        "Body": "- [ ] Deploy ring 0\n- [ ] Deploy rest rings\n- [ ] Update docs"
+        "Body": "- [ ] Deploy ring 0\n- [ ] Deploy rest rings\n- [ ] Update docs",
+        "Labels": [
+            "question"
+        ]
     }
 ]

@@ -13,20 +13,36 @@ $repositoryId = $eventPayload.repository.node_id
 # if ($milestoneTitle -NotMatch "\d{4} Week \d") {
 #     exit 0
 # }
+function Get-IssueLabelsIds {
+    param(
+        [object[]] $RepositoryLabels,
+        [string[]] $IssueLabels
+    )
+
+    $labelIds = @()
+    foreach ($RepositoryLabel in $RepositoryLabels) {
+        if ($IssueLabels.Contains($RepositoryLabel)) {
+            $labelIds += $RepositoryLabel.id
+        }
+    }
+}
 
 $githubGraphQlApi = Get-GithubGraphQlApi -BearerToken $env:GITHUB_TOKEN
 
-# Write-Host "Create issues..."
-# $jsonPath = Join-Path $PSScriptRoot "issues.json"
-# $issues = Get-Content -Raw -Path $jsonPath | ConvertFrom-Json
-
-# foreach ($issue in $issues) {
-#     $title = $issue.Title + $milestoneTitle
-#     $githubGraphQlApi.CreateIssue($repositoryId, $milestoneId, $title, $issue.Body)
-#     Write-Host "Issue `"$title`" is created"
-# }
-
+# Get repository labels
 $labels = $githubGraphQlApi.GetRepoLabels($repositoryOwner, $repositoryName)
+
+Write-Host "Create issues..."
+$jsonPath = Join-Path $PSScriptRoot "issues.json"
+$issues = Get-Content -Raw -Path $jsonPath | ConvertFrom-Json
+
+foreach ($issue in $issues) {
+    $title = $issue.Title + $milestoneTitle
+    $issueLabelIds = Get-IssueLabelsIds -RepositoryLabels $labels -IssueLabels $issue.Labels
+    $githubGraphQlApi.CreateIssue($repositoryId, $milestoneId, $title, $issue.Body, $issueLabelIds)
+    Write-Host "Issue `"$title`" is created"
+}
+
 foreach ($label in $labels) {
     Write-Host $label
 }
