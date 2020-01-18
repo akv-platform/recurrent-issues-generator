@@ -11,17 +11,8 @@ Write-Host "Description: $milestoneDescription"
 Write-Host "Date: $milestoneDate"
 Write-Host "Number: $milestoneNumber"
 
-$bodyRequest = @{
-    title = "Hello issue"
-    body = "issue body is here"
-    milestone = $milestoneNumber
-} | ConvertTo-Json
-
-$headerRequest = @{
-    "Content-Type" = "application/json"
+if ($milestoneTitle -NotMatch "\d\d\d\d Week \d\d") {
+    exit 0
 }
 
-$githubURL = "https://api.github.com/repos/vsafonkin/test-github-actions/issues"
-
-$response = Invoke-RestMethod -Uri $githubURL -Method 'Post' -Body $bodyRequest -Headers $headerRequest
-Write-Host $response
+Write-Host "Create issues..."
