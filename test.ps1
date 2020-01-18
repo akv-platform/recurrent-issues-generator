@@ -11,7 +11,7 @@ Write-Host "Description: $milestoneDescription"
 Write-Host "Date: $milestoneDate"
 Write-Host "Number: $milestoneNumber"
 
-if ($milestoneTitle -NotMatch "\d\d\d\d Week \d\d") {
+if ($milestoneTitle -NotMatch "\d\d\d\d Week \d") {
     exit 0
 }
 
