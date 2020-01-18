@@ -6,7 +6,6 @@ Write-Host $eventPayload.milestone
 Write-Host $eventPayload.repository
 Write-Host $eventPayload.sender
 $milestoneTitle = $eventPayload.milestone.title
-$milestoneDescription = $eventPayload.milestone.description
 $milestoneId = $eventPayload.milestone.node_id
 $repositoryName = $eventPayload.repository.name
 $repositoryOwner = $eventPayload.repository.owner.login
@@ -30,7 +29,7 @@ function Get-IssueLabelsIds {
     return $labelIds | ConvertTo-Json
 }
 
-$githubGraphQlApi = Get-GithubGraphQlApi -BearerToken $env:GITHUB_TOKEN
+$githubGraphQlApi = Get-GithubGraphQlApi -BearerToken $env:MY_GITHUB_TOKEN
 
 # Get repository labels
 $labels = $githubGraphQlApi.GetRepoLabels($repositoryOwner, $repositoryName)
