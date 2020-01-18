@@ -12,13 +12,14 @@ class GithubGraphQLApi
         }
     }
 
-    [object] CreateIssue([string]$RepositoryId, [string]$MilestoneId, [string]$Title) {
+    [object] CreateIssue([string]$RepositoryId, [string]$MilestoneId, [string]$Title, [string]$Body) {
         $query = "mutation {
             createIssue(input:{
-                            title:`"$Title`", 
-                            repositoryId:`"$repositoryID`",
-                            milestoneId:`"$milestoneId`"
-                        })
+                repositoryId:`"$repositoryID`",
+                milestoneId:`"$milestoneId`"
+                title:`"$Title`",
+                body:`"$Body`"
+            })
             {issue {title}
             }
          }"

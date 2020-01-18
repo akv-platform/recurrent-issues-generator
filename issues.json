@@ -1,8 +1,10 @@
 [
     {
-        "Title": "AppCenter Mojave Image Updates"
+        "Title": "AppCenter Mojave Image Updates ",
+        "Body": "- [] Deploy to INT\n- [] Deploy to PROD\n- [] Update docs"
     },
     {
-        "Title": "AzDO Mojave Image Updates"
+        "Title": "AzDO Mojave Image Updates ",
+        "Body": "- [] Deploy ring 0\n- [] Deploy rest rings\n- [] Update docs"
     }
 ]
