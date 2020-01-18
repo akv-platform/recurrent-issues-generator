@@ -48,7 +48,14 @@ class GithubGraphQLApi
             }
         }}"
 
-        return $this.InvokeApiMethod($query)
+        $response = $this.InvokeApiMethod($query)
+
+        $cardIds = @()
+        foreach ($issue in $response.data.repository.issues.nodes) {
+            $cardIds += $issue.projectCards.nodes[0].id
+        }
+
+        return $cardIds
     }
 
     [object] MoveProjectCard([string]$CardId) {
@@ -61,7 +68,7 @@ class GithubGraphQLApi
             {clientMutationId}
         }"
 
-        return this.InvokeApiMethod($query)
+        return $this.InvokeApiMethod($query)
     }
 
     [object] hidden InvokeApiMethod(
