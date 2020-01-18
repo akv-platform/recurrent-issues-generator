@@ -5,7 +5,7 @@
         "Labels": [
             "bug",
             "azure devops",
-            "Hello"
+            "documentation"
         ]
     },
     {
@@ -13,8 +13,7 @@
         "Body": "- [ ] Deploy ring 0\n- [ ] Deploy rest rings\n- [ ] Update docs",
         "Labels": [
             "question",
-            "Github",
-            "Invalid"
+            "invalid"
         ]
     }
 ]
