@@ -21,6 +21,7 @@ Write-Host "------------"
 
 Write-Host "Create issues..."
 
+$githubGraphQLApi = "https://api.github.com/graphql"
 $query = "mutation {createIssue(input:{title:`"hello github`", repositoryId:`"$repositoryID`"})
                {issue {title}}
                     }"
