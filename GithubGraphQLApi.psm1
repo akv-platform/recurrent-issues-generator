@@ -1,19 +1,27 @@
 class GithubGraphQLApi
 {
     [string] $GraphQlApiUrl
+    [string] $RepositoryOwner
+    [string] $RepositoryName
     [object] $AuthHeader
 
     GithubGraphQLApi(
-        [string] $BearerToken
+        [string] $RepositoryOwner,
+        [string] $BearerToken,
+        [string] $RepositoryName
     ) {
         $this.GraphQlApiUrl = "https://api.github.com/graphql"
+        $this.RepositoryOwner = $RepositoryOwner
+        $this.RepositoryName = $RepositoryName
         $this.AuthHeader = @{
             Authorization = "Bearer $BearerToken"
         }
     }
 
-    [object] GetRepoLabels([string]$RepositoryOwner, [string]$RepositoryName) {
-        $query = "{repository(owner: `"$RepositoryOwner`", name: `"$RepositoryName`") {labels(first: 100) {nodes {name, id}}}}"
+    [object] GetRepoLabels([string]$RepositoryName) {
+        $owner = $this.RepositoryOwner
+        $name = $this.RepositoryName
+        $query = "{repository(owner: `"$owner`", name: `"$name`") {labels(first: 100) {nodes {name, id}}}}"
         $response = $this.InvokeApiMethod($query)
         return $response.data.repository.labels.nodes
     }

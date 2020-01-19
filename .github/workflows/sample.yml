@@ -1,4 +1,4 @@
-name: Test
+name: Issue generator
 
 on:
   milestone:
@@ -15,4 +15,4 @@ jobs:
       run: ./test.ps1
       shell: pwsh
       env:
-        MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}

@@ -30,7 +30,7 @@ function Get-IssueLabelsIds {
     return $labelIds | ConvertTo-Json
 }
 
-$githubGraphQlApi = Get-GithubGraphQlApi -BearerToken $env:MY_GITHUB_TOKEN
+$githubGraphQlApi = Get-GithubGraphQlApi -BearerToken $env:GITHUB_TOKEN
 
 # Get repository labels
 $labels = $githubGraphQlApi.GetRepoLabels($repositoryOwner, $repositoryName)
