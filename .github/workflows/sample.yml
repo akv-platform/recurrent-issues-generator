@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Run a multi-line script
-      run: ./test.ps1
+      run: ./CreateRecurrentIssues.ps1
       shell: pwsh
       env:
         GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}

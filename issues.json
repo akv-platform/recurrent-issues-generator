@@ -1,10 +1,11 @@
 [
     {
-        "Title": "Internal Mojave Image Updates ",
-        "Body": "- [ ] Deploy ring 0\n- [ ] Deploy rest rings\n- [ ] Update docs",
+        "Title": "AppCenter Mojave Image Updates ",
+        "Body": "- [ ] Deploy to INT\n- [ ] Deploy to PROD\n- [ ] Update docs",
         "Labels": [
-            "vm rollout",
-            "mojave"
+            "bug",
+            "azure devops",
+            "documentation"
         ]
     },
     {
@@ -16,12 +17,38 @@
         ]
     },
     {
-        "Title": "AppCenter Mojave Image Updates ",
+        "Title": "Internal Mojave Image Updates ",
+        "Body": "- [ ] Deploy ring 0\n- [ ] Deploy rest rings\n- [ ] Update docs",
+        "Labels": [
+            "vm rollout",
+            "mojave"
+        ]
+    },
+    {
+        "Title": "Internal Sierra Image Updates ",
+        "Body": "- [ ] Deploy ring 0\n- [ ] Deploy rest rings\n- [ ] Update docs",
+        "Labels": [
+            "documentation"
+        ]
+    },
+    {
+        "Title": "AppCenter High Sierra Image Updates ",
         "Body": "- [ ] Deploy to INT\n- [ ] Deploy to PROD\n- [ ] Update docs",
         "Labels": [
-            "bug",
-            "azure devops",
-            "documentation"
+            "question",
+            "invalid"
+        ]
+    },
+    {
+        "Title": "Internal High Sierra Image Updates ",
+        "Body": "- [ ] Deploy ring 0\n- [ ] Deploy rest rings\n- [ ] Update docs",
+        "Labels": []
+    },
+    {
+        "Title": "AzDO High Sierra Image Updates ",
+        "Body": "- [ ] Deploy ring 0\n- [ ] Deploy rest rings\n- [ ] Update docs",
+        "Labels": [
+            "good first issue"
         ]
     }
 ]

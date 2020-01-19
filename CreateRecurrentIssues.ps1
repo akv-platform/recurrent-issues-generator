@@ -1,4 +1,6 @@
 Import-Module (Join-Path $PSScriptRoot -ChildPath "GithubGraphQLApi.psm1")
+Import-Module (Join-Path $PSScriptRoot -ChildPath "RecurrentIssues.Helpers.psm1")
+
 
 $organizationName = "vsafonkin-test-organization"
 $projectName = "Test project"
@@ -15,37 +17,6 @@ if ($milestoneTitle -NotMatch "\d{4} Week \d") {
     exit 0
 }
 
-function Get-IssueLabelsIds {
-    param(
-        [object[]] $RepositoryLabels,
-        [string[]] $IssueLabels
-    )
-
-    $labelIds = @()
-    foreach ($RepositoryLabel in $RepositoryLabels) {
-        if ($IssueLabels.Contains($RepositoryLabel.name)) {
-            $labelIds += $RepositoryLabel.id
-        }
-    }
-    return $labelIds | ConvertTo-Json
-}
-
-function Get-ColumnId {
-    param(
-        [object[]] $ProjectColumns,
-        [string] $ColumnName
-    )
-
-    foreach ($projectColumn in $ProjectColumns) {
-        if ($projectColumn.name -eq $ColumnName) {
-            return $projectColumn.id
-        }
-    }
-
-    Write-Host "Column with name $ColumnName not exists in project"
-    return $null
-}
-
 $githubGraphQlApi = Get-GithubGraphQlApi -RepositoryOwner $repositoryOwner -RepositoryName $repositoryName -BearerToken $env:GITHUB_TOKEN
 
 # Get repository labels
@@ -60,13 +31,13 @@ $issues = Get-Content -Raw -Path $jsonPath | ConvertFrom-Json
 
 foreach ($issue in $issues) {
     $title = $issue.Title + $milestoneTitle
-    $issueLabelIds = Get-IssueLabelsIds -RepositoryLabels $labels -IssueLabels $issue.Labels
+    $issueLabelIds = Get-IssueLabelIds -RepositoryLabels $labels -IssueLabels $issue.Labels
     $githubGraphQlApi.CreateIssue($repositoryNodeId, $milestoneNodeId, $title, $issue.Body, $issueLabelIds, $projectId)
     Write-Host "Issue `"$title`" is created"
 
 }
 
-# Get project columns
+# Get "to do" column id
 $columnName = "to do"
 $projectColumns = $githubGraphQlApi.GetProjectColumns($organizationName, $projectName)
 $columnId = Get-ColumnId -ProjectColumns $projectColumns -ColumnName $columnName
