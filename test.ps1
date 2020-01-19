@@ -72,7 +72,7 @@ $projectColumns = $githubGraphQlApi.GetProjectColumns($organizationName, $projec
 $columnId = Get-ColumnId -ProjectColumns $projectColumns -ColumnName $columnName
 
 # Move assigned project cards to "to do" column
-$cardIds = $githubGraphQlApi.GetMilestoneCardIds($milestoneId, $columnId)
+$cardIds = $githubGraphQlApi.GetMilestoneCardIds($milestoneId)
 foreach ($cardId in $cardIds) {
-    $githubGraphQlApi.MoveProjectCard($cardId)
+    $githubGraphQlApi.MoveProjectCard($cardId, $columnId)
 }
