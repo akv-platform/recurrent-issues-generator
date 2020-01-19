@@ -26,7 +26,24 @@ class GithubGraphQLApi
         return $response.data.repository.labels.nodes
     }
 
-    [object] CreateIssue([string]$RepositoryId, [string]$MilestoneId, [string]$Title, [string]$Body, [string[]]$LabelIds) {
+    [string] GetProjectId([string]$OrganizationName, [string]$ProjectName) {
+        $query = "{organization(login:`"$OrganizationName`"){
+            projects(search:`"$ProjectName`", last:1) {
+                nodes {
+                    id
+                }
+            }
+        }}"
+        $response = $this.InvokeApiMethod($query)
+        return $response.data.organization.projects.nodes[0].id
+    }
+
+    [object] CreateIssue([string]$RepositoryId,
+                         [string]$MilestoneId,
+                         [string]$Title,
+                         [string]$Body,
+                         [string[]]$LabelIds,
+                         [string]$ProjectId) {
         $query = "mutation {
             createIssue(input:{
                 repositoryId:`"$repositoryID`",
@@ -34,7 +51,7 @@ class GithubGraphQLApi
                 title:`"$Title`",
                 body:`"$Body`",
                 labelIds:$LabelIds,
-                projectIds: `"MDc6UHJvamVjdDM4MjQ1NjE=`"
+                projectIds: `"$ProjectId`"
             })
             {issue {title}
             }
