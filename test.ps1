@@ -30,10 +30,10 @@ function Get-IssueLabelsIds {
     return $labelIds | ConvertTo-Json
 }
 
-$githubGraphQlApi = Get-GithubGraphQlApi -BearerToken $env:GITHUB_TOKEN
+$githubGraphQlApi = Get-GithubGraphQlApi -RepositoryOwner $repositoryOwner -RepositoryName $repositoryName -BearerToken $env:GITHUB_TOKEN
 
 # Get repository labels
-$labels = $githubGraphQlApi.GetRepoLabels($repositoryOwner, $repositoryName)
+$labels = $githubGraphQlApi.GetRepoLabels()
 
 Write-Host "Create issues..."
 $jsonPath = Join-Path $PSScriptRoot "issues.json"
