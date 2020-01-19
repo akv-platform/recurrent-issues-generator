@@ -11,9 +11,9 @@ $repositoryName = $eventPayload.repository.name
 $repositoryOwner = $eventPayload.repository.owner.login
 $repositoryNodeId = $eventPayload.repository.node_id
 
-# if ($milestoneTitle -NotMatch "\d{4} Week \d") {
-#     exit 0
-# }
+if ($milestoneTitle -NotMatch "\d{4} Week \d") {
+    exit 0
+}
 
 function Get-IssueLabelsIds {
     param(
