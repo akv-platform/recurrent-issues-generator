@@ -2,8 +2,8 @@ Import-Module (Join-Path $PSScriptRoot -ChildPath "GithubGraphQLApi.psm1")
 Import-Module (Join-Path $PSScriptRoot -ChildPath "RecurrentIssues.Helpers.psm1")
 
 
-$organizationName = "vsafonkin-test-organization"
-$projectName = "Test project"
+$organizationName = "akv-platform"
+$projectName = "Recurrent issues generator test project"
 
 $eventPayload = Get-Content $env:GITHUB_EVENT_PATH | ConvertFrom-Json
 $milestoneTitle = $eventPayload.milestone.title
