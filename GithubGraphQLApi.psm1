@@ -28,7 +28,7 @@ class GithubGraphQLApi
 
     [string] GetProjectId([string]$OrganizationName, [string]$ProjectName) {
         $query = "{organization(login:`"$OrganizationName`"){
-            projects(search:`"$ProjectName`", last:1) {
+            projects(search:`"$ProjectName`", first:1) {
                 nodes {
                     id
                 }
@@ -40,9 +40,9 @@ class GithubGraphQLApi
 
     [object] GetProjectColumns([string]$OrganizationName, [string]$ProjectName) {
         $query = "{organization(login:`"$OrganizationName`"){
-            projects(search:`"$ProjectName`", last:1) {
+            projects(search:`"$ProjectName`", first:1) {
                 nodes {
-                    columns(last:20) {
+                    columns(first:20) {
                         nodes {
                             name, id
                         }
@@ -80,9 +80,9 @@ class GithubGraphQLApi
         $owner = $this.RepositoryOwner
         $name = $this.RepositoryName
         $query = "{repository(owner: `"$owner`", name: `"$name`") {
-            issues(filterBy: {milestone: `"$milestoneId`"}, last: 20) {
+            issues(filterBy: {milestone: `"$milestoneId`"}, first: 20) {
                 nodes {
-                    projectCards(last: 20) {
+                    projectCards(first: 20) {
                         nodes {
                             id
                         }
