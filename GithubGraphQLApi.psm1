@@ -18,7 +18,7 @@ class GithubGraphQLApi
         }
     }
 
-    [object] GetRepoLabels([string]$RepositoryName) {
+    [object] GetRepoLabels() {
         $owner = $this.RepositoryOwner
         $name = $this.RepositoryName
         $query = "{repository(owner: `"$owner`", name: `"$name`") {labels(first: 100) {nodes {name, id}}}}"
