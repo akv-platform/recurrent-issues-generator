@@ -30,6 +30,22 @@ function Get-IssueLabelsIds {
     return $labelIds | ConvertTo-Json
 }
 
+function Get-ColumnId {
+    param(
+        [object[]] $ProjectColumns,
+        [string] $ColumnName
+    )
+
+    foreach ($projectColumn in $ProjectColumns) {
+        if ($projectColumn.name -eq $ColumnName) {
+            return $projectColumn.id
+        }
+    }
+
+    Write-Host "Column with name $ColumnName not exists in project"
+    return $null
+}
+
 $githubGraphQlApi = Get-GithubGraphQlApi -RepositoryOwner $repositoryOwner -RepositoryName $repositoryName -BearerToken $env:GITHUB_TOKEN
 
 # Get repository labels
@@ -37,6 +53,12 @@ $labels = $githubGraphQlApi.GetRepoLabels()
 
 # Get project id for assigned project
 $projectId = $githubGraphQlApi.GetProjectId($organizationName, $projectName)
+
+# Get project columns
+$columnName = "to do"
+$projectColumns = $githubGraphQlApi.GetProjectColumns($organizationName, $projectName)
+$columnId = Get-ColumnId -ProjectColumns $projectColumns -ColumnName $columnName
+Write-Host $columnId
 
 Write-Host "Create issues..."
 $jsonPath = Join-Path $PSScriptRoot "issues.json"

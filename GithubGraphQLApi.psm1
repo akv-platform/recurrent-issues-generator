@@ -38,6 +38,22 @@ class GithubGraphQLApi
         return $response.data.organization.projects.nodes[0].id
     }
 
+    [object] GetProjectColumns([string]$OrganizationName, [string]$ProjectName) {
+        $query = "{organization(login:`"$OrganizationName`"){
+            projects(search:`"$ProjectName`", last:1) {
+                nodes {
+                    columns(last:20) {
+                        nodes {
+                            name, id
+                        }
+                    }
+                }
+            }
+        }}"
+        $response = this.InvokeApiMethod($query)
+        return $response.data.organization.projects.nodes[0].columns.nodes
+    }
+
     [object] CreateIssue([string]$RepositoryId,
                          [string]$MilestoneId,
                          [string]$Title,
