@@ -48,7 +48,7 @@ foreach ($issue in $issues) {
 }
 
 # Move assigned project cards to "to do" column
-$cardIds = $githubGraphQlApi.GetMilestoneCardIds($repositoryOwner, $repositoryName, $milestoneId)
+$cardIds = $githubGraphQlApi.GetMilestoneCardIds($milestoneId)
 foreach ($cardId in $cardIds) {
     $githubGraphQlApi.MoveProjectCard($cardId)
 }
