@@ -42,7 +42,7 @@
     {
         "Title": "Internal High Sierra Image Updates ",
         "Body": "- [ ] Deploy ring 0\n- [ ] Deploy rest rings\n- [ ] Update docs",
-        "Labels": []
+        "Labels": ["bug"]
     },
     {
         "Title": "AzDO High Sierra Image Updates ",

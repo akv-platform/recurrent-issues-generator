@@ -1,1 +1,1 @@
-## Recurrent issue generator
+## Recurrent issues generator
