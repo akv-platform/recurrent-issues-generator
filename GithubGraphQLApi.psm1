@@ -50,7 +50,7 @@ class GithubGraphQLApi
                 }
             }
         }}"
-        $response = this.InvokeApiMethod($query)
+        $response = $this.InvokeApiMethod($query)
         return $response.data.organization.projects.nodes[0].columns.nodes
     }
 
