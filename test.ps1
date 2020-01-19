@@ -54,12 +54,6 @@ $labels = $githubGraphQlApi.GetRepoLabels()
 # Get project id for assigned project
 $projectId = $githubGraphQlApi.GetProjectId($organizationName, $projectName)
 
-# Get project columns
-$columnName = "to do"
-$projectColumns = $githubGraphQlApi.GetProjectColumns($organizationName, $projectName)
-$columnId = Get-ColumnId -ProjectColumns $projectColumns -ColumnName $columnName
-Write-Host $columnId
-
 Write-Host "Create issues..."
 $jsonPath = Join-Path $PSScriptRoot "issues.json"
 $issues = Get-Content -Raw -Path $jsonPath | ConvertFrom-Json
@@ -72,8 +66,13 @@ foreach ($issue in $issues) {
 
 }
 
+# Get project columns
+$columnName = "to do"
+$projectColumns = $githubGraphQlApi.GetProjectColumns($organizationName, $projectName)
+$columnId = Get-ColumnId -ProjectColumns $projectColumns -ColumnName $columnName
+
 # Move assigned project cards to "to do" column
-$cardIds = $githubGraphQlApi.GetMilestoneCardIds($milestoneId)
+$cardIds = $githubGraphQlApi.GetMilestoneCardIds($milestoneId, $columnId)
 foreach ($cardId in $cardIds) {
     $githubGraphQlApi.MoveProjectCard($cardId)
 }

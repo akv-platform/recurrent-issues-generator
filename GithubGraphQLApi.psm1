@@ -101,12 +101,11 @@ class GithubGraphQLApi
         return $cardIds
     }
 
-    [object] MoveProjectCard([string]$CardId) {
-        $columnId = "MDEzOlByb2plY3RDb2x1bW43NzIyODY5"
+    [object] MoveProjectCard([string]$CardId, $ColumnId) {
         $query = "mutation {
             moveProjectCard(input:{
                 cardId: `"$CardId`",
-                columnId: `"$columnId`"
+                columnId: `"$ColumnId`"
             })
             {clientMutationId}
         }"
