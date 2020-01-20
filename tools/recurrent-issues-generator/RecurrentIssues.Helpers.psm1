@@ -29,7 +29,7 @@ function Get-ColumnId {
     return $null
 }
 
-function Add-TeamLabel {
+function Add-Label {
     param (
         [string[]] $IssueLabels,
         [string[]] $TeamLabels,
@@ -38,17 +38,17 @@ function Add-TeamLabel {
     )
     
     if ($Week % 2 -ne 0) {
-        $groupOneLabel = $TeamLabels[0]
-        $groupTwoLabel = $TeamLabels[1]
+        $labelForFirstGroup = "alyona team"
+        $labelForSecondGroup = "sergey team"
     } else {
-        $groupOneLabel = $TeamLabels[1]
-        $groupTwoLabel = $TeamLabels[0]
+        $labelForFirstGroup = "sergey team"
+        $labelForSecondGroup = "alyona team"
     }
 
     if ($IssueGroup -eq 1) {
-        $IssueLabels += $groupOneLabel
+        $IssueLabels += $labelForFirstGroup
     } elseif ($IssueGroup -eq 2) {
-        $IssueLabels += $groupTwoLabel
+        $IssueLabels += $labelForSecondGroup
     }
     
     return $IssueLabels
