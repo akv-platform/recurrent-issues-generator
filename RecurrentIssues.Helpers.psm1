@@ -29,7 +29,7 @@ function Get-ColumnId {
     return $null
 }
 
-Get-IssueBody {
+function Get-IssueBody {
     param(
         [string[]] $IssueBodyRows
     )
