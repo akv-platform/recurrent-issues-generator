@@ -41,3 +41,28 @@ function Get-IssueBody {
     }
     return $resultBody
 }
+
+function Add-TeamLabel {
+    param (
+        [string[]] $IssueLabels,
+        [string[]] $TeamLabels,
+        [int] $Week,
+        [int] $IssueGroup
+    )
+    
+    if ($Week % 2 -ne 0) {
+        $groupOneLabel = $TeamLabels[0]
+        $groupTwoLabel = $TeamLabels[1]
+    } else {
+        $groupOneLabel = $TeamLabels[1]
+        $groupTwoLabel = $TeamLabels[0]
+    }
+
+    if ($IssueGroup -eq 1) {
+        $IssueLabels += $groupOneLabel
+    } elseif ($IssueGroup -eq 2) {
+        $IssueLabels += $groupTwoLabel
+    }
+    
+    return $IssueLabels
+}

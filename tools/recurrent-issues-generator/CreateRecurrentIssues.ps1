@@ -12,6 +12,7 @@ $milestoneId = $eventPayload.milestone.id
 $repositoryName = $eventPayload.repository.name
 $repositoryOwner = $eventPayload.repository.owner.login
 $repositoryNodeId = $eventPayload.repository.node_id
+$week = $milestoneTitle.split(" ")[2]
 
 if ($milestoneTitle -NotMatch "\d{4} Week \d") {
     exit 0
@@ -21,6 +22,10 @@ $githubGraphQlApi = Get-GithubGraphQlApi -RepositoryOwner $repositoryOwner -Repo
 
 # Get repository labels
 $labels = $githubGraphQlApi.GetRepoLabels()
+$teamLabels = @(
+    "sergey team"
+    "alyona team"
+)
 
 # Get project id for assigned project
 $projectId = $githubGraphQlApi.GetProjectId($organizationName, $projectName)
@@ -32,7 +37,8 @@ $issues = Get-Content -Raw -Path $jsonPath | ConvertFrom-Json
 foreach ($issue in $issues) {
     $title = $issue.Title + $milestoneTitle
     $body = Get-IssueBody -IssueBodyRows $issue.Body
-    $issueLabelIds = Get-IssueLabelIds -RepositoryLabels $labels -IssueLabels $issue.Labels
+    $issueLabels = Add-TeamLabel -IssueLabels $issue.Labels -TeamLabels $teamLabels -Week $week -IssueGroup $issue.Group
+    $issueLabelIds = Get-IssueLabelIds -RepositoryLabels $labels -IssueLabels $issueLabels
     $githubGraphQlApi.CreateIssue($repositoryNodeId, $milestoneNodeId, $title, $body, $issueLabelIds, $projectId)
     Write-Host "Issue `"$title`" is created"
 

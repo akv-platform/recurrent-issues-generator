@@ -10,42 +10,8 @@
             "bug",
             "azure devops",
             "documentation"
-        ]
-    },
-    {
-        "Title": "AzDO Mojave Image Updates ",
-        "Body": [
-            "- [ ] Deploy ring 0",
-            "- [ ] Deploy rest rings",
-            "- [ ] Update docs"
         ],
-        "Labels": [
-            "question",
-            "help wanted"
-        ]
-    },
-    {
-        "Title": "Internal Mojave Image Updates ",
-        "Body": [
-            "- [ ] Deploy ring 0",
-            "- [ ] Deploy rest rings",
-            "- [ ] Update docs"
-        ],
-        "Labels": [
-            "vm rollout",
-            "mojave"
-        ]
-    },
-    {
-        "Title": "Internal Sierra Image Updates ",
-        "Body": [
-            "- [ ] Deploy ring 0",
-            "- [ ] Deploy rest rings",
-            "- [ ] Update docs"
-        ],
-        "Labels": [
-            "documentation"
-        ]
+        "Group": 1
     },
     {
         "Title": "AppCenter High Sierra Image Updates ",
@@ -57,21 +23,49 @@
         "Labels": [
             "question",
             "invalid"
-        ]
+        ],
+        "Group": 1
     },
     {
-        "Title": "Internal High Sierra Image Updates ",
+        "Title": "AzDO Mojave Image Updates ",
         "Body": [
             "- [ ] Deploy ring 0",
             "- [ ] Deploy rest rings",
             "- [ ] Update docs"
         ],
         "Labels": [
-            "bug"
-        ]
+            "question",
+            "help wanted"
+        ],
+        "Group": 1
     },
     {
-        "Title": "AzDO High Sierra Image Updates ",
+        "Title": "Internal Mojave Image Updates ",
+        "Body": [
+            "- [ ] Deploy ring 0",
+            "- [ ] Deploy rest rings",
+            "- [ ] Update docs"
+        ],
+        "Labels": [
+            "vm rollout",
+            "mojave"
+        ],
+        "Group": 2
+    },
+    {
+        "Title": "Internal Sierra Image Updates ",
+        "Body": [
+            "- [ ] Deploy ring 0",
+            "- [ ] Deploy rest rings",
+            "- [ ] Update docs"
+        ],
+        "Labels": [
+            "documentation"
+        ],
+        "Group": 2
+    },
+    {
+        "Title": "Github Catalina Image Updates ",
         "Body": [
             "- [ ] Deploy ring 0",
             "- [ ] Deploy rest rings",
@@ -79,6 +73,7 @@
         ],
         "Labels": [
             "good first issue"
-        ]
+        ],
+        "Group": 2
     }
 ]
