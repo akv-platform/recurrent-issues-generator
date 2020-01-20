@@ -29,10 +29,9 @@ function Get-ColumnId {
     return $null
 }
 
-function Add-Label {
+function Add-TeamLabel {
     param (
         [string[]] $IssueLabels,
-        [string[]] $TeamLabels,
         [int] $Week,
         [int] $IssueGroup
     )
