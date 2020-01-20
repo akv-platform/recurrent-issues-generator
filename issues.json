@@ -1,7 +1,11 @@
 [
     {
         "Title": "AppCenter Mojave Image Updates ",
-        "Body": "- [ ] Deploy to INT\n- [ ] Deploy to PROD\n- [ ] Update docs",
+        "Body": [
+            "- [ ] Deploy to INT",
+            "- [ ] Deploy to PROD",
+            "- [ ] Update docs"
+        ],
         "Labels": [
             "bug",
             "azure devops",
@@ -10,7 +14,11 @@
     },
     {
         "Title": "AzDO Mojave Image Updates ",
-        "Body": "- [ ] Deploy ring 0\n- [ ] Deploy rest rings\n- [ ] Update docs",
+        "Body": [
+            "- [ ] Deploy ring 0",
+            "- [ ] Deploy rest rings",
+            "- [ ] Update docs"
+        ],
         "Labels": [
             "question",
             "help wanted"
@@ -18,7 +26,11 @@
     },
     {
         "Title": "Internal Mojave Image Updates ",
-        "Body": "- [ ] Deploy ring 0\n- [ ] Deploy rest rings\n- [ ] Update docs",
+        "Body": [
+            "- [ ] Deploy ring 0",
+            "- [ ] Deploy rest rings",
+            "- [ ] Update docs"
+        ],
         "Labels": [
             "vm rollout",
             "mojave"
@@ -26,14 +38,22 @@
     },
     {
         "Title": "Internal Sierra Image Updates ",
-        "Body": "- [ ] Deploy ring 0\n- [ ] Deploy rest rings\n- [ ] Update docs",
+        "Body": [
+            "- [ ] Deploy ring 0",
+            "- [ ] Deploy rest rings",
+            "- [ ] Update docs"
+        ],
         "Labels": [
             "documentation"
         ]
     },
     {
         "Title": "AppCenter High Sierra Image Updates ",
-        "Body": "- [ ] Deploy to INT\n- [ ] Deploy to PROD\n- [ ] Update docs",
+        "Body": [
+            "- [ ] Deploy to INT",
+            "- [ ] Deploy to PROD",
+            "- [ ] Update docs"
+        ],
         "Labels": [
             "question",
             "invalid"
@@ -41,12 +61,22 @@
     },
     {
         "Title": "Internal High Sierra Image Updates ",
-        "Body": "- [ ] Deploy ring 0\n- [ ] Deploy rest rings\n- [ ] Update docs",
-        "Labels": ["bug"]
+        "Body": [
+            "- [ ] Deploy ring 0",
+            "- [ ] Deploy rest rings",
+            "- [ ] Update docs"
+        ],
+        "Labels": [
+            "bug"
+        ]
     },
     {
         "Title": "AzDO High Sierra Image Updates ",
-        "Body": "- [ ] Deploy ring 0\n- [ ] Deploy rest rings\n- [ ] Update docs",
+        "Body": [
+            "- [ ] Deploy ring 0",
+            "- [ ] Deploy rest rings",
+            "- [ ] Update docs"
+        ],
         "Labels": [
             "good first issue"
         ]

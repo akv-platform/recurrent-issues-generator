@@ -28,3 +28,16 @@ function Get-ColumnId {
     Write-Host "Column with name $ColumnName not exists in project"
     return $null
 }
+
+Get-IssueBody {
+    param(
+        [string[]] $IssueBodyRows
+    )
+
+    $resultBody = ""
+    foreach ($bodyRow in $IssueBodyRows) {
+        $bodyRow += "\n"
+        $resultBody += $bodyRow
+    }
+    return $resultBody
+}

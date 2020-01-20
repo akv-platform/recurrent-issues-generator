@@ -31,8 +31,9 @@ $issues = Get-Content -Raw -Path $jsonPath | ConvertFrom-Json
 
 foreach ($issue in $issues) {
     $title = $issue.Title + $milestoneTitle
+    $body = Get-IssueBody -IssueBodyRows $issue.Body
     $issueLabelIds = Get-IssueLabelIds -RepositoryLabels $labels -IssueLabels $issue.Labels
-    $githubGraphQlApi.CreateIssue($repositoryNodeId, $milestoneNodeId, $title, $issue.Body, $issueLabelIds, $projectId)
+    $githubGraphQlApi.CreateIssue($repositoryNodeId, $milestoneNodeId, $title, $body, $issueLabelIds, $projectId)
     Write-Host "Issue `"$title`" is created"
 
 }
