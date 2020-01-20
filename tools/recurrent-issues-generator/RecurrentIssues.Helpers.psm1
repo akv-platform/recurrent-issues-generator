@@ -29,19 +29,6 @@ function Get-ColumnId {
     return $null
 }
 
-function Get-IssueBody {
-    param(
-        [string[]] $IssueBodyRows
-    )
-
-    $resultBody = ""
-    foreach ($bodyRow in $IssueBodyRows) {
-        $bodyRow += "\n"
-        $resultBody += $bodyRow
-    }
-    return $resultBody
-}
-
 function Add-TeamLabel {
     param (
         [string[]] $IssueLabels,

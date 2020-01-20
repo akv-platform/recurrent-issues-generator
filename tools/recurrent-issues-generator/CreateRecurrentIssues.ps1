@@ -36,7 +36,7 @@ $issues = Get-Content -Raw -Path $jsonPath | ConvertFrom-Json
 
 foreach ($issue in $issues) {
     $title = $issue.Title + $milestoneTitle
-    $body = Get-IssueBody -IssueBodyRows $issue.Body
+    $body = [string]::Join("\n", $issue.Body) 
     $issueLabels = Add-TeamLabel -IssueLabels $issue.Labels -TeamLabels $teamLabels -Week $week -IssueGroup $issue.Group
     $issueLabelIds = Get-IssueLabelIds -RepositoryLabels $labels -IssueLabels $issueLabels
     $githubGraphQlApi.CreateIssue($repositoryNodeId, $milestoneNodeId, $title, $body, $issueLabelIds, $projectId)
