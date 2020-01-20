@@ -131,7 +131,14 @@ class GithubGraphQLApi
             $params.Headers += $this.AuthHeader
         }
 
+        Write-Host "Invoke $queryGraphQl..."
         $response = Invoke-WebRequest @params | ConvertFrom-Json
+        
+        $statusCode = $response.statuscode
+        Write-Host "Status code: $statusCode"
+        if ($response.statuscode -ne 200) {
+            Write-Host "Response: $response"
+        }
         return $response
     }
 }
