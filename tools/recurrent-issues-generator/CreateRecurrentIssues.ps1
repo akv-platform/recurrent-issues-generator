@@ -18,7 +18,7 @@ if ($milestoneTitle -NotMatch "\d{4} Week \d") {
     exit 0
 }
 
-$githubGraphQlApi = Get-GithubGraphQlApi -RepositoryOwner $repositoryOwner -RepositoryName $repositoryName -BearerToken $env:GITHUB_TOKEN
+$githubGraphQlApi = Get-GithubGraphQlApi -RepositoryOwner $($repositoryOwner + "error") -RepositoryName $repositoryName -BearerToken $env:GITHUB_TOKEN
 
 # Get repository labels
 $labels = $githubGraphQlApi.GetRepoLabels()

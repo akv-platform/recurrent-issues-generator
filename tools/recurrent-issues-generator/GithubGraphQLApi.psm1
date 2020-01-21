@@ -21,17 +21,17 @@ class GithubGraphQLApi
     [object] GetRepoLabels() {
         $owner = $this.RepositoryOwner
         $name = $this.RepositoryName
+        $query = "{repository(owner: `"$owner`", name: `"$name`") {labels(first: 100) {nodes {name, id}}}}"
 
         Write-Host "Request repository labels for $owner/$name"
-        $query = "{repository(owner: `"$owner`", name: `"$name`") {labels(first: 100) {nodes {name, id}}}}"
         $response = $this.InvokeApiMethod($query)
-
+        
         if ($response.errors) {
             Write-Host "Request error!"
             Write-Host $response.errors
             exit 1
         }
-        
+
         return $response.data.repository.labels.nodes
     }
 
@@ -43,6 +43,8 @@ class GithubGraphQLApi
                 }
             }
         }}"
+
+        Write-Host "Request project id for $OrganizationName/$ProjectName"
         $response = $this.InvokeApiMethod($query)
         return $response.data.organization.projects.nodes[0].id
     }
