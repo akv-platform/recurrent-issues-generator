@@ -3,12 +3,11 @@ Import-Module (Join-Path $PSScriptRoot -ChildPath "RecurrentIssues.Helpers.psm1"
 
 
 $organizationName = "akv-platform"
-$projectName = "Recurrent issues generator test project"
+$projectName = "Recurrent issues generator test project error"
 
 $eventPayload = Get-Content $env:GITHUB_EVENT_PATH | ConvertFrom-Json
 $milestoneTitle = $eventPayload.milestone.title
 $milestoneNodeId = $eventPayload.milestone.node_id
-$milestoneId = $eventPayload.milestone.id
 $repositoryName = $eventPayload.repository.name
 $repositoryOwner = $eventPayload.repository.owner.login
 $repositoryNodeId = $eventPayload.repository.node_id
@@ -39,8 +38,6 @@ foreach ($issue in $issues) {
     $issueLabelIds = Get-IssueLabelIds -RepositoryLabels $labels -IssueLabels $issueLabels
     $issuePayload = $githubGraphQlApi.CreateIssue($repositoryNodeId, $milestoneNodeId, $title, $body, $issueLabelIds, $projectId)
     $milestoneCardIds += Get-IssueCardIds -IssuePayload $issuePayload
-    Write-Host "Issue `"$title`" is created"
-
 }
 
 # Get "to do" column id
