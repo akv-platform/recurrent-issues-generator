@@ -25,13 +25,6 @@ class GithubGraphQLApi
 
         Write-Host "Request repository labels for $owner/$name"
         $response = $this.InvokeApiMethod($query)
-        
-        if ($response.errors) {
-            Write-Host "Request error!"
-            Write-Host $response.errors
-            exit 1
-        }
-
         return $response.data.repository.labels.nodes
     }
 
@@ -61,6 +54,8 @@ class GithubGraphQLApi
                 }
             }
         }}"
+
+        Write-Host "Request project columns for $OrganizationName/$ProjectName"
         $response = $this.InvokeApiMethod($query)
         return $response.data.organization.projects.nodes[0].columns.nodes
     }
@@ -83,8 +78,10 @@ class GithubGraphQLApi
             {issue {title}
             }
          }"
-
-        return $this.InvokeApiMethod($query)
+        
+        Write-Host "Request to create issue `"$Title`""
+        $response = $this.InvokeApiMethod($query)
+        return $response
     }
 
     [object] GetMilestoneCardIds([string]$milestoneId) {
@@ -101,7 +98,8 @@ class GithubGraphQLApi
                 }
             }
         }}"
-
+        
+        Write-Host "Request milestone card ids"
         $response = $this.InvokeApiMethod($query)
 
         $cardIds = @()
@@ -120,8 +118,11 @@ class GithubGraphQLApi
             })
             {clientMutationId}
         }"
+        
+        Write-Host "Request to move project cards"
+        $response = $this.InvokeApiMethod($query)
 
-        return $this.InvokeApiMethod($query)
+        return $response
     }
 
     [object] hidden InvokeApiMethod(
@@ -143,12 +144,13 @@ class GithubGraphQLApi
         }
 
         $response = Invoke-WebRequest @params 
-        
+
         $statusCode = $response.statuscode
         Write-Host "Response status code: $statusCode"
         if ($statusCode -ne 200) {
-            Write-Host "Response: $response"
+            Write-Error "Response: $response"
         }
+
         return $response | ConvertFrom-Json
     }
 }
