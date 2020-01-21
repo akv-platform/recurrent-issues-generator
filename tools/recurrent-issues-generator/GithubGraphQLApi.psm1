@@ -87,7 +87,7 @@ class GithubGraphQLApi
     
         Write-Host "Request to create issue `"$Title`""
         $response = $this.InvokeApiMethod($query)
-        Write-Host $response
+        Write-Host $response.data.issue.projectCards.nodes
         return $response
     }
 
