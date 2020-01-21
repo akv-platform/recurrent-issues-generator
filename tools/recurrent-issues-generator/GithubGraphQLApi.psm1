@@ -38,8 +38,7 @@ class GithubGraphQLApi
         }}"
 
         Write-Host "Request project id for $OrganizationName/$ProjectName"
-        $interruptIfBadRequest = $true
-        $response = $this.InvokeApiMethod($query, $interruptIfBadRequest)
+        $response = $this.InvokeApiMethod($query)
         return $response.data.organization.projects.nodes[0].id
     }
 
@@ -135,8 +134,7 @@ class GithubGraphQLApi
     }
 
     [object] hidden InvokeApiMethod(
-        [string] $queryGraphQl,
-        [boolean] $InterruptFlag = $false
+        [string] $queryGraphQl
     ) {
         $requestGraphQl = @{
             query = $queryGraphQl
@@ -153,7 +151,7 @@ class GithubGraphQLApi
             $params.Headers += $this.AuthHeader
         }
 
-        $response = Invoke-WebRequest @params 
+        $response = Invoke-WebRequest @params
 
         $statusCode = $response.statuscode
         Write-Host "Response status code: $statusCode"
@@ -162,12 +160,8 @@ class GithubGraphQLApi
         }
 
         if ($response.errors) {
-            Write-Error "Response has errors!"
-            Write-Error $Response.errors
-            if ($InterruptFlag) {
-                Write-Host "Script is interrupted"
-                exit 1
-            }
+            Write-Error "Server return query error"
+            Write-Error $response.errors
         }
 
         return $response | ConvertFrom-Json
