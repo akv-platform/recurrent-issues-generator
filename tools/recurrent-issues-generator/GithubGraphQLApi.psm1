@@ -132,14 +132,14 @@ class GithubGraphQLApi
         }
 
         Write-Host "Invoke $queryGraphQl..."
-        $response = Invoke-WebRequest @params | ConvertFrom-Json
+        $response = Invoke-WebRequest @params 
         
         $statusCode = $response.statuscode
         Write-Host "Status code: $statusCode"
-        if ($response.statuscode -ne 200) {
+        if ($statusCode -ne 200) {
             Write-Host "Response: $response"
         }
-        return $response
+        return $response | ConvertFrom-Json
     }
 }
 
