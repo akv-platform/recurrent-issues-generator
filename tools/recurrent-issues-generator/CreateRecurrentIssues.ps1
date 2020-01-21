@@ -30,12 +30,15 @@ Write-Host "Create issues..."
 $jsonPath = Join-Path $PSScriptRoot "issues.json"
 $issues = Get-Content -Raw -Path $jsonPath | ConvertFrom-Json
 
+$milestoneCardIds = @()
+
 foreach ($issue in $issues) {
     $title = $issue.Title + $milestoneTitle
     $body = [string]::Join("\n", $issue.Body) 
     $issueLabels = Add-TeamLabel -IssueLabels $issue.Labels -Week $week -IssueGroup $issue.Group
     $issueLabelIds = Get-IssueLabelIds -RepositoryLabels $labels -IssueLabels $issueLabels
-    $githubGraphQlApi.CreateIssue($repositoryNodeId, $milestoneNodeId, $title, $body, $issueLabelIds, $projectId)
+    $issuePayload = $githubGraphQlApi.CreateIssue($repositoryNodeId, $milestoneNodeId, $title, $body, $issueLabelIds, $projectId)
+    $milestoneCardIds += Get-IssueCardIds -IssuePayload $issuePayload
     Write-Host "Issue `"$title`" is created"
 
 }
@@ -46,7 +49,7 @@ $projectColumns = $githubGraphQlApi.GetProjectColumns($organizationName, $projec
 $columnId = Get-ColumnId -ProjectColumns $projectColumns -ColumnName $columnName
 
 # Move assigned project cards to "to do" column
-$cardIds = $githubGraphQlApi.GetMilestoneCardIds($milestoneId)
-foreach ($cardId in $cardIds) {
+# $cardIds = $githubGraphQlApi.GetMilestoneCardIds($milestoneId)
+foreach ($cardId in $milestoneCardIds) {
     $githubGraphQlApi.MoveProjectCard($cardId, $columnId)
 }

@@ -75,19 +75,21 @@ class GithubGraphQLApi
                 labelIds:$LabelIds,
                 projectIds: `"$ProjectId`"
             })
-            {issue {
-                    title
+            {
+                issue {
+                    projectCards(first:20) {
+                        nodes {
+                           id
+                        }
+                    }
                 }
-            }
             }
          }"
     
         Write-Host "Request to create issue `"$Title`""
         $response = $this.InvokeApiMethod($query)
-        Write-Warning "repository id: $repositoryID"
-        Write-Warning "project id: $projectId"
-        Write-Host $response.data
-        return $response
+        Write-Host $response.data.createIssue.issue.projectCards.nodes
+        return $response.data.createIssue.issue
     }
 
     [object] GetMilestoneCardIds([string]$milestoneId) {
