@@ -21,8 +21,17 @@ class GithubGraphQLApi
     [object] GetRepoLabels() {
         $owner = $this.RepositoryOwner
         $name = $this.RepositoryName
+
+        Write-Host "Request repository labels for $owner/$name"
         $query = "{repository(owner: `"$owner`", name: `"$name`") {labels(first: 100) {nodes {name, id}}}}"
         $response = $this.InvokeApiMethod($query)
+
+        if ($response.errors) {
+            Write-Host "Request error!"
+            Write-Host $response.errors
+            exit 1
+        }
+        
         return $response.data.repository.labels.nodes
     }
 
@@ -131,11 +140,10 @@ class GithubGraphQLApi
             $params.Headers += $this.AuthHeader
         }
 
-        Write-Host "Invoke $queryGraphQl..."
         $response = Invoke-WebRequest @params 
         
         $statusCode = $response.statuscode
-        Write-Host "Status code: $statusCode"
+        Write-Host "Response status code: $statusCode"
         if ($statusCode -ne 200) {
             Write-Host "Response: $response"
         }
