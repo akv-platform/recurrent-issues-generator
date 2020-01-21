@@ -75,12 +75,19 @@ class GithubGraphQLApi
                 labelIds:$LabelIds,
                 projectIds: `"$ProjectId`"
             })
-            {issue {title}
+            {issue {
+                projectCards(first:20) {
+                    nodes {
+                        id
+                    }
+                }
+            }
             }
          }"
-        
+    
         Write-Host "Request to create issue `"$Title`""
         $response = $this.InvokeApiMethod($query)
+        Write-Host $response
         return $response
     }
 
