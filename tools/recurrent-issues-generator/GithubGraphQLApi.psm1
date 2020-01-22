@@ -129,7 +129,7 @@ class GithubGraphQLApi {
         
         if ($response.errors) {
             Write-Host "##[error]Response has errors!"
-            Write-Host $($response | Select-Object -ExpandProperty *)
+            Write-Host "##[error] $($response | ForEach-Object { $_ })"
             exit 1
         }
 
