@@ -127,10 +127,10 @@ class GithubGraphQLApi {
 
         $response = Invoke-WebRequest @params 
 
-        $statusCode = $response.statuscode
-        Write-Host "Response status code: $statusCode"
-        if ($statusCode -ne 200) {
-            Write-Error "Response: $response"
+        if ($response.errors) {
+            Write-Error "Response has errors!"
+            Write-Error $response.errors
+            exit 1
         }
 
         return $response | ConvertFrom-Json

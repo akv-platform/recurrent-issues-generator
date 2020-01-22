@@ -15,4 +15,4 @@ jobs:
       run: ./tools/recurrent-issues-generator/CreateRecurrentIssues.ps1
       shell: pwsh
       env:
-        GITHUB_TOKEN: ${{ secrets.WRONG_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.V_VLSAFO_GITHUB_TOKEN }}
