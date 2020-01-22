@@ -125,16 +125,16 @@ class GithubGraphQLApi {
             $params.Headers += $this.AuthHeader
         }
 
-        $response = Invoke-WebRequest @params 
+        $response = Invoke-WebRequest @params | ConvertFrom-Json
         
         Write-Host $response
-        if (($response | ConvertFrom-Json).errors) {
+        if ($response.errors) {
             Write-Error "Response has errors!"
             Write-Error $response.errors
             exit 1
         }
 
-        return $response | ConvertFrom-Json
+        return $response 
     }
 }
 
