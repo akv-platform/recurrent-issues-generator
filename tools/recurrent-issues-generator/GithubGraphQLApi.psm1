@@ -38,6 +38,12 @@ class GithubGraphQLApi {
 
         Write-Host "Request project id for $OrganizationName/$ProjectName"
         $response = $this.InvokeApiMethod($query)
+
+        if ($response.data.organization.projects.nodes.length -eq 0) {
+            Write-Host "##[error] Not found `"$ProjectName`" in `"$OrganizationName`""
+            return $null
+        }
+        
         return $response.data.organization.projects.nodes[0].id
     }
 
