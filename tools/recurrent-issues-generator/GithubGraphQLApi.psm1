@@ -129,7 +129,7 @@ class GithubGraphQLApi {
         
         if ($response.errors) {
             Write-Host "##[error]Response has errors!"
-            Write-Host "##[error] $($response | Format-Custom -Property *)"
+            Write-Host "##[error] $($response.errors[0].message)"
             exit 1
         }
 
