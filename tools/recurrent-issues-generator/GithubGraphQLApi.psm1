@@ -129,7 +129,7 @@ class GithubGraphQLApi {
         
         if ($response.errors) {
             Write-Error "Response has errors!"
-            Write-Error $response.errors[0]
+            Write-Error ($response | Format-Table | Out-String)
             exit 1
         }
 
