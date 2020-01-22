@@ -55,11 +55,11 @@ function Add-TeamLabel {
 
 function Get-IssueCardIds {
     param(
-        [object[]] $IssuePayload
+        [object[]] $Issue
     )
     
     $cardIds = @()
-    foreach($card in $IssuePayload.projectCards.nodes) {
+    foreach($card in $Issue.projectCards.nodes) {
         $cardIds += $card.id
     }
 

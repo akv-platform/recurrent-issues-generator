@@ -1,5 +1,4 @@
-class GithubGraphQLApi
-{
+class GithubGraphQLApi {
     [string] $GraphQlApiUrl
     [string] $RepositoryOwner
     [string] $RepositoryName
@@ -66,6 +65,7 @@ class GithubGraphQLApi
                          [string]$Body,
                          [string[]]$LabelIds,
                          [string]$ProjectId) {
+
         $query = "mutation {
             createIssue(input:{
                 repositoryId:`"$repositoryID`",
@@ -79,43 +79,17 @@ class GithubGraphQLApi
                 issue {
                     projectCards(first:20) {
                         nodes {
-                           id
-                        }
-                    }
-                }
-            }
-         }"
-    
-        Write-Host "Request to create issue `"$Title`""
-        $response = $this.InvokeApiMethod($query)
-        Write-Host "Issue `"$Title`" is created\n\n"
-        return $response.data.createIssue.issue
-    }
-
-    [object] GetMilestoneCardIds([string]$milestoneId) {
-        $owner = $this.RepositoryOwner
-        $name = $this.RepositoryName
-        $query = "{repository(owner: `"$owner`", name: `"$name`") {
-            issues(filterBy: {milestone: `"$milestoneId`"}, first: 20) {
-                nodes {
-                    projectCards(first: 20) {
-                        nodes {
                             id
                         }
                     }
                 }
             }
-        }}"
+        }"
         
-        Write-Host "Request milestone card ids"
-        $response = $this.InvokeApiMethod($query)
-
-        $cardIds = @()
-        foreach ($issue in $response.data.repository.issues.nodes) {
-            $cardIds += $issue.projectCards.nodes[0].id
-        }
-
-        return $cardIds
+        Write-Host "Request to create issue `"$Title`""
+        $response = $this.InvokeApiMethod($query)    
+        Write-Host "Issue `"$Title`" is created"
+        return $response.data.createIssue.issue
     }
 
     [object] MoveProjectCard([string]$CardId, $ColumnId) {
@@ -141,27 +115,22 @@ class GithubGraphQLApi
         } | ConvertTo-Json
 
         $params = @{
-            Method = "POST"
+            Method      = "POST"
             ContentType = "application/json"
-            Uri = $this.graphQlApiUrl
-            Body = $requestGraphQl
-            Headers = @{}
+            Uri         = $this.graphQlApiUrl
+            Body        = $requestGraphQl
+            Headers     = @{ }
         }
         if ($this.AuthHeader) {
             $params.Headers += $this.AuthHeader
         }
 
-        $response = Invoke-WebRequest @params
+        $response = Invoke-WebRequest @params 
 
         $statusCode = $response.statuscode
         Write-Host "Response status code: $statusCode"
         if ($statusCode -ne 200) {
             Write-Error "Response: $response"
-        }
-
-        if ($response.errors) {
-            Write-Error "Server return query error"
-            Write-Error $response.errors
         }
 
         return $response | ConvertFrom-Json
