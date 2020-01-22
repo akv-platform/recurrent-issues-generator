@@ -128,8 +128,8 @@ class GithubGraphQLApi {
         $response = Invoke-WebRequest @params | ConvertFrom-Json
         
         if ($response.errors) {
-            Write-Host "Response has errors!"
-            Write-Host $($response | Select-Object -Property *)
+            Write-Host "##[error]Response has errors!"
+            Write-Host $($response | ForEach-Object { Select-Object * })
             exit 1
         }
 
