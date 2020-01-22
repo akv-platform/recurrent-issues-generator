@@ -3,7 +3,7 @@ Import-Module (Join-Path $PSScriptRoot -ChildPath "RecurrentIssues.Helpers.psm1"
 
 
 $organizationName = "akv-platform"
-$projectName = "Recurrent issues generator test project error"
+$projectName = "Recurrent issues generator test project"
 
 $eventPayload = Get-Content $env:GITHUB_EVENT_PATH | ConvertFrom-Json
 $milestoneTitle = $eventPayload.milestone.title

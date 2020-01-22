@@ -41,9 +41,9 @@ class GithubGraphQLApi {
 
         if ($response.data.organization.projects.nodes.length -eq 0) {
             Write-Host "##[error] Not found `"$ProjectName`" in `"$OrganizationName`""
-            return $null
+            exit 1
         }
-        
+
         return $response.data.organization.projects.nodes[0].id
     }
 
