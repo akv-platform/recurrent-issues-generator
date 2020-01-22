@@ -130,7 +130,7 @@ class GithubGraphQLApi {
         Write-Host $response
         if ($response.errors) {
             Write-Error "Response has errors!"
-            Write-Error $response.errors
+            Write-Error ($response | ConvertTo-Json)
             exit 1
         }
 
