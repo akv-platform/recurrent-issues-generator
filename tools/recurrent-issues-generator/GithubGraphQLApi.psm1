@@ -126,7 +126,8 @@ class GithubGraphQLApi {
         }
 
         $response = Invoke-WebRequest @params 
-
+        
+        Write-Host $response
         if ($response.errors) {
             Write-Error "Response has errors!"
             Write-Error $response.errors
