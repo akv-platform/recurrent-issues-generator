@@ -9,7 +9,7 @@ class GithubGraphQLApi {
         [string] $RepositoryName,
         [string] $BearerToken
     ) {
-        $this.GraphQlApiUrl = "https://api.github.com/graphqlerr"
+        $this.GraphQlApiUrl = "https://api.github.com/graphql"
         $this.RepositoryOwner = $RepositoryOwner
         $this.RepositoryName = $RepositoryName
         $this.AuthHeader = @{
