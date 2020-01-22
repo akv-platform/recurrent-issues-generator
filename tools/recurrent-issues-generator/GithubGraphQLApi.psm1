@@ -129,7 +129,7 @@ class GithubGraphQLApi {
         
         if ($response.errors) {
             Write-Host "##[error]Response has errors!"
-            Write-Host "##[error] $($response | ForEach-Object { $_ })"
+            Write-Host "##[error] $($response | ConvertTo-Json)"
             exit 1
         }
 
