@@ -14,19 +14,6 @@
         "Group": 1
     },
     {
-        "Title": "AppCenter High Sierra Image Updates ",
-        "Body": [
-            "- [ ] Deploy to INT",
-            "- [ ] Deploy to PROD",
-            "- [ ] Update docs"
-        ],
-        "Labels": [
-            "question",
-            "invalid"
-        ],
-        "Group": 1
-    },
-    {
         "Title": "AzDO Mojave Image Updates ",
         "Body": [
             "- [ ] Deploy ring 0",
@@ -49,18 +36,6 @@
         "Labels": [
             "vm rollout",
             "mojave"
-        ],
-        "Group": 2
-    },
-    {
-        "Title": "Internal Sierra Image Updates ",
-        "Body": [
-            "- [ ] Deploy ring 0",
-            "- [ ] Deploy rest rings",
-            "- [ ] Update docs"
-        ],
-        "Labels": [
-            "documentation"
         ],
         "Group": 2
     },

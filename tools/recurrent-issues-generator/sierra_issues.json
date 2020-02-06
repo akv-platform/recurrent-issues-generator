@@ -1,0 +1,27 @@
+[
+    {
+        "Title": "AppCenter High Sierra Image Updates ",
+        "Body": [
+            "- [ ] Deploy to INT",
+            "- [ ] Deploy to PROD",
+            "- [ ] Update docs"
+        ],
+        "Labels": [
+            "question",
+            "invalid"
+        ],
+        "Group": 1
+    },
+    {
+        "Title": "Internal Sierra Image Updates ",
+        "Body": [
+            "- [ ] Deploy ring 0",
+            "- [ ] Deploy rest rings",
+            "- [ ] Update docs"
+        ],
+        "Labels": [
+            "documentation"
+        ],
+        "Group": 2
+    }
+]

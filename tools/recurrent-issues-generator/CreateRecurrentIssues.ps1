@@ -7,6 +7,7 @@ $projectName = "Recurrent issues generator test project"
 
 $eventPayload = Get-Content $env:GITHUB_EVENT_PATH | ConvertFrom-Json
 $milestoneTitle = $eventPayload.milestone.title
+$milestoneDescription = $eventPayload.milestone.description
 $milestoneNodeId = $eventPayload.milestone.node_id
 $repositoryName = $eventPayload.repository.name
 $repositoryOwner = $eventPayload.repository.owner.login
@@ -15,6 +16,11 @@ $repositoryNodeId = $eventPayload.repository.node_id
 if ($milestoneTitle -NotMatch "\d{4} Week \d") {
     Write-Host "This milestone no need to create recurrent issues."
     exit 0
+}
+
+$sierraIssuesFlag = $false
+if ($milestoneDescription -Match "sierra") {
+    $sierraIssuesFlag = $true
 }
 
 $week = $milestoneTitle.split(" ")[2]
@@ -30,6 +36,12 @@ $projectId = $githubGraphQlApi.GetProjectId($organizationName, $projectName)
 Write-Host "Create issues..."
 $jsonPath = Join-Path $PSScriptRoot "issues.json"
 $issues = Get-Content -Raw -Path $jsonPath | ConvertFrom-Json
+
+if ($sierraIssuesFlag) {
+    $sierraIssuesJsonPath = Join-Path $PSScriptRoot "sierra_issues.json"
+    $sierraIssues = Get-Content -Raw -Path $sierraIssuesJsonPath | ConvertFrom-Json
+    $issues += $sierraIssues
+}
 
 $milestoneCardIds = @()
 
