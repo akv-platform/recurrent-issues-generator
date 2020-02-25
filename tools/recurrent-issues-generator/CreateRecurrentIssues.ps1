@@ -18,9 +18,9 @@ if ($milestoneTitle -NotMatch "\d{4} Week \d") {
     exit 0
 }
 
-$week = $milestoneTitle.split(" ")[2]
+[int]$week = $milestoneTitle.split(" ")[2]
 
-$sierraIssuesFlag = (($milestoneDescription -Match "sierra") -or ($week % 4 -eq 0))
+$sierraIssuesFlag = (($milestoneDescription -Match "sierra") -or (($week + 2) % 4 -eq 0))
 
 $githubGraphQlApi = Get-GithubGraphQlApi -RepositoryOwner $repositoryOwner -RepositoryName $repositoryName -BearerToken $env:GITHUB_TOKEN
 
