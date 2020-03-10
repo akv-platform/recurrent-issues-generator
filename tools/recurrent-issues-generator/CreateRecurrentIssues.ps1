@@ -3,7 +3,6 @@ Import-Module (Join-Path $PSScriptRoot -ChildPath "RecurrentIssues.Helpers.psm1"
 
 
 $organizationName = "akv-platform"
-$projectName = "Recurrent issues generator test project"
 
 $eventPayload = Get-Content $env:GITHUB_EVENT_PATH | ConvertFrom-Json
 $milestoneTitle = $eventPayload.milestone.title
@@ -27,9 +26,6 @@ $githubGraphQlApi = Get-GithubGraphQlApi -RepositoryOwner $repositoryOwner -Repo
 # Get repository labels
 $labels = $githubGraphQlApi.GetRepoLabels()
 
-# Get project id for assigned project
-$projectId = $githubGraphQlApi.GetProjectId($organizationName, $projectName)
-
 Write-Host "Create issues..."
 $jsonPath = Join-Path $PSScriptRoot "issues.json"
 $issues = Get-Content -Raw -Path $jsonPath | ConvertFrom-Json
@@ -40,23 +36,17 @@ if ($sierraIssuesFlag) {
     $issues += $sierraIssues
 }
 
-$milestoneCardIds = @()
+# Get "to do" column id
+$columnName = "to do"
 
 foreach ($issue in $issues) {
     $title = $issue.Title + $milestoneTitle
     $body = [string]::Join("\n", $issue.Body)
+    $projectId = $githubGraphQlApi.GetProjectId($organizationName, $issue.projectName)
     $issueLabels = Add-TeamLabel -IssueLabels $issue.Labels -Week $week -IssueGroup $issue.Group
     $issueLabelIds = Get-IssueLabelIds -RepositoryLabels $labels -IssueLabels $issueLabels
     $issue = $githubGraphQlApi.CreateIssue($repositoryNodeId, $milestoneNodeId, $title, $body, $issueLabelIds, $projectId)
-    $milestoneCardIds += Get-IssueCardIds -Issue $issue
-}
-
-# Get "to do" column id
-$columnName = "to do"
-$projectColumns = $githubGraphQlApi.GetProjectColumns($organizationName, $projectName)
-$columnId = Get-ColumnId -ProjectColumns $projectColumns -ColumnName $columnName
-
-# Move assigned project cards to "to do" column
-foreach ($cardId in $milestoneCardIds) {
-    $githubGraphQlApi.MoveProjectCard($cardId, $columnId)
+    $projectColumns = $githubGraphQlApi.GetProjectColumns($organizationName, $issue.projectName)
+    $columnId = Get-ColumnId -ProjectColumns $projectColumns -ColumnName $columnName
+    $githubGraphQlApi.MoveProjectCard((Get-IssueCardIds -Issue $issue), $columnId)
 }

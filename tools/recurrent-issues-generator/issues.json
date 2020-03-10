@@ -11,6 +11,7 @@
             "azure devops",
             "documentation"
         ],
+        "ProjectName": "Recurrent issues generator test project",
         "Group": 1
     },
     {
@@ -24,6 +25,7 @@
             "question",
             "help wanted"
         ],
+        "ProjectName": "Recurrent issues generator test project",
         "Group": 1
     },
     {
@@ -37,6 +39,7 @@
             "vm rollout",
             "mojave"
         ],
+        "ProjectName": "Recurrent issues generator test project",
         "Group": 2
     },
     {
@@ -49,6 +52,7 @@
         "Labels": [
             "good first issue"
         ],
+        "ProjectName": "Development",
         "Group": 2
     }
 ]
