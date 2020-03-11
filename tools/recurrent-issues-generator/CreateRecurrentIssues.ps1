@@ -42,8 +42,8 @@ foreach ($issue in $issues) {
     $projectId = $githubGraphQlApi.GetProjectId($organizationName, $issue.ProjectName)
     $issueLabels = Add-TeamLabel -IssueLabels $issue.Labels -Week $week -IssueGroup $issue.Group
     $issueLabelIds = Get-IssueLabelIds -RepositoryLabels $labels -IssueLabels $issueLabels
-    $issue = $githubGraphQlApi.CreateIssue($repositoryNodeId, $milestoneNodeId, $title, $body, $issueLabelIds, $projectId)
+    $createdIssue = $githubGraphQlApi.CreateIssue($repositoryNodeId, $milestoneNodeId, $title, $body, $issueLabelIds, $projectId)
     $projectColumns = $githubGraphQlApi.GetProjectColumns($organizationName, $issue.ProjectName)
     $columnId = Get-ColumnId -ProjectColumns $projectColumns -ColumnName $issue.ColumnName
-    $githubGraphQlApi.MoveProjectCard((Get-IssueCardIds -Issue $issue), $columnId)
+    $githubGraphQlApi.MoveProjectCard((Get-IssueCardIds -Issue $createdIssue), $columnId)
 }
