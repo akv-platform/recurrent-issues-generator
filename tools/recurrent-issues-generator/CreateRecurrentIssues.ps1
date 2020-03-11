@@ -39,7 +39,7 @@ if ($sierraIssuesFlag) {
 foreach ($issue in $issues) {
     $title = $issue.Title + $milestoneTitle
     $body = [string]::Join("\n", $issue.Body)
-    $projectId = $githubGraphQlApi.GetProjectId($organizationName, $issue.projectName)
+    $projectId = $githubGraphQlApi.GetProjectId($organizationName, $issue.ProjectName)
     $issueLabels = Add-TeamLabel -IssueLabels $issue.Labels -Week $week -IssueGroup $issue.Group
     $issueLabelIds = Get-IssueLabelIds -RepositoryLabels $labels -IssueLabels $issueLabels
     $issue = $githubGraphQlApi.CreateIssue($repositoryNodeId, $milestoneNodeId, $title, $body, $issueLabelIds, $projectId)
