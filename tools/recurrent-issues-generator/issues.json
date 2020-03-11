@@ -2,9 +2,18 @@
     {
         "Title": "AppCenter Mojave Image Updates ",
         "Body": [
+            "- [ ] Update Mac-Cloud docs",
             "- [ ] Deploy to INT",
+            "- [ ] Validate PipelineCanary INT tests",
+            "- [ ] Validate Runscope INT tests",
             "- [ ] Deploy to PROD",
-            "- [ ] Update docs"
+            "- [ ] Update App Center docs",
+            "- [ ] Update Slack banners",
+            "- [ ] Validate Runscope PROD tests",
+            "- [ ] Link to the deployment pipeline",
+            "- [ ] Link to the Slack banners",
+            "- [ ] Link to merged docs PR",
+            "- [ ] My pair left a commend that deployment is valid and fully done, checkboxes are clicked and that the issue can be closed"
         ],
         "Labels": [
             "bug",
