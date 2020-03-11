@@ -36,9 +36,6 @@ if ($sierraIssuesFlag) {
     $issues += $sierraIssues
 }
 
-# Get "to do" column id
-$columnName = "to do"
-
 foreach ($issue in $issues) {
     $title = $issue.Title + $milestoneTitle
     $body = [string]::Join("\n", $issue.Body)
@@ -46,7 +43,7 @@ foreach ($issue in $issues) {
     $issueLabels = Add-TeamLabel -IssueLabels $issue.Labels -Week $week -IssueGroup $issue.Group
     $issueLabelIds = Get-IssueLabelIds -RepositoryLabels $labels -IssueLabels $issueLabels
     $issue = $githubGraphQlApi.CreateIssue($repositoryNodeId, $milestoneNodeId, $title, $body, $issueLabelIds, $projectId)
-    $projectColumns = $githubGraphQlApi.GetProjectColumns($organizationName, $issue.projectName)
-    $columnId = Get-ColumnId -ProjectColumns $projectColumns -ColumnName $columnName
+    $projectColumns = $githubGraphQlApi.GetProjectColumns($organizationName, $issue.ProjectName)
+    $columnId = Get-ColumnId -ProjectColumns $projectColumns -ColumnName $issue.ColumnName
     $githubGraphQlApi.MoveProjectCard((Get-IssueCardIds -Issue $issue), $columnId)
 }

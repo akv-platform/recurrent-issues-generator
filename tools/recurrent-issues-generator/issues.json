@@ -12,6 +12,7 @@
             "documentation"
         ],
         "ProjectName": "Recurrent issues generator test project",
+        "ColumnName": "to do",
         "Group": 1
     },
     {
@@ -26,6 +27,7 @@
             "help wanted"
         ],
         "ProjectName": "Recurrent issues generator test project",
+        "ColumnName": "to do",
         "Group": 1
     },
     {
@@ -40,6 +42,7 @@
             "mojave"
         ],
         "ProjectName": "Recurrent issues generator test project",
+        "ColumnName": "to do",
         "Group": 2
     },
     {
@@ -53,6 +56,7 @@
             "good first issue"
         ],
         "ProjectName": "Development",
+        "ColumnName": "In progress",
         "Group": 2
     }
 ]
